@@ -30,5 +30,8 @@ export default {
     neutralGrey3: '#93A8C1',
     tertiaryYellow: "#F0AB44",
     tertiaryMagenta: "#F15E79",
-    secondary_MayaBlue: '#59CBE4'
+    secondary_MayaBlue: '#59CBE4',
+    green: "#00CC33",
+    red: "#FF0033",
+    red33: "#FF0066"
 };

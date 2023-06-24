@@ -1,16 +1,16 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Home';
+import Message from '../screens/Message';
 
 const HomeStack = createStackNavigator();
 
 
 
 
-export default function HomeStackScreen() {
+export default function MessageStackScreen() {
     return (
         <HomeStack.Navigator>
-            <HomeStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <HomeStack.Screen name="Message" component={Message} options={{ headerShown: false }} />
         </HomeStack.Navigator>
     )
 }

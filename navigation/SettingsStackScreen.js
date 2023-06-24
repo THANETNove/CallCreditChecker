@@ -8,7 +8,7 @@ const SettingsStack = createStackNavigator();
 export default function SettingsStacktackScreen() {
     return (
         <SettingsStack.Navigator>
-            <SettingsStack.Screen name="Settings" component={Settings} />
+            <SettingsStack.Screen name="Settings" component={Settings} options={{ headerShown: false }} />
         </SettingsStack.Navigator>
     )
 }
