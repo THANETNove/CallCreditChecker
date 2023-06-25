@@ -41,7 +41,7 @@ function MyTabs() {
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'gray',
                 tabBarLabelStyle: { marginBottom: 10 },
-                tabBarStyle: { height: 60 },
+                tabBarStyle: { height: 90 },
             })}>
             <Tab.Screen name="HomeTabs" component={HomeStackScreen} options={{ headerShown: false, tabBarLabel: 'ล่าสุด' }} />
             <Tab.Screen name="MessageTabs" component={MessageStackScreen} options={{ headerShown: false, tabBarLabel: 'ข้อความ' }} />

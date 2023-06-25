@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, Pressable, Linking } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Pressable, Linking, PermissionsAndroid, Alert } from 'react-native';
 import * as Contacts from 'expo-contacts';
 import { StatusBar } from 'expo-status-bar';
 import colors from '../components/colors'
-/* import { CallHistory } from 'expo-call-history'; */
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+import CallDetectorManager from 'react-native-call-detection';
+
 
 
 
@@ -22,33 +23,97 @@ const Home = () => {
                 const { data } = await Contacts.getContactsAsync({
                     fields: [Contacts.Fields.PhoneNumbers],
                 });
-
-                /*  console.log("data", data); */
                 if (data.length > 0) {
-
-
                     setPhoneContacts(data)
-                    /* getCallHistory() */
+
                 }
             }
         })();
     }, []);
 
-    const getCallHistory = async () => {
+
+
+    useEffect(() => {
+        requestPhonePermission();
+    }, []);
+
+    const requestPhonePermission = async () => {
         try {
-            const { status } = await CallHistory.requestPermissionsAsync();
-            if (status === 'granted') {
-                const startDate = new Date(2022, 1, 1); // ตั้งเวลาเริ่มต้น
-                const endDate = new Date(); // ตั้งเวลาสิ้นสุด (ในที่นี้เป็นเวลาปัจจุบัน)
-                const callHistory = await CallHistory.getCallHistoryAsync(startDate, endDate);
-                console.log('Call History:', callHistory);
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+                {
+                    title: 'Phone Permission',
+                    message: 'This app needs access to your phone state.',
+                    buttonPositive: 'OK',
+                    buttonNegative: 'Cancel',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('Phone permission granted');
+                // ทำสิ่งที่คุณต้องการเมื่อได้รับการอนุญาต
+                startCallDetection();
             } else {
-                console.log('Permission denied');
+                console.log('Phone permission denied');
+                // ทำสิ่งที่คุณต้องการเมื่อไม่ได้รับการอนุญาต
             }
         } catch (error) {
-            console.log('Error:', error);
+            console.log('Error requesting phone permission:', error);
         }
     };
+
+    const startCallDetection = () => {
+        const callDetector = new CallDetectorManager(
+            (event, phoneNumber) => {
+                if (event === 'Incoming') {
+                    console.log('Incoming call:', phoneNumber);
+                    setIncomingCall(phoneNumber);
+                } else if (event === 'Disconnected') {
+                    console.log('Call ended');
+                    setIncomingCall(null);
+                }
+            },
+            true
+        );
+    };
+
+
+    /*    useEffect(() => {
+           (async () => {
+               const { status } = await Contacts.requestPermissionsAsync();
+               if (status === 'granted') {
+   
+                   const callDetector = new CallDetectorManager(
+                       (event, phoneNumber) => {
+                           if (event === 'Incoming') {
+                               // ตรวจจับการโทรเข้า
+                               console.log('Incoming call:', phoneNumber);
+                               // ทำสิ่งที่คุณต้องการเมื่อมีการโทรเข้า
+                           } else if (event === 'Offhook') {
+                               // ตรวจจับการโทรออก
+                               console.log('Outgoing call:', phoneNumber);
+                               // ทำสิ่งที่คุณต้องการเมื่อมีการโทรออก
+                           } else if (event === 'Disconnected') {
+                               // ตรวจจับการโทรสิ้นสุด
+                               console.log('Call ended');
+                               // ทำสิ่งที่คุณต้องการเมื่อการโทรสิ้นสุดลง
+                           }
+                       },
+                       true // คุณสามารถใช้พารามิเตอร์นี้เพื่อให้ได้รับเหตุการณ์เมื่อไม่ใช่โทรศัพท์ (เช่น สายโทรออกอยู่)
+                   );
+                   console.log("callDetector", callDetector);
+   
+               }
+           })();
+       }, []);
+    */
+
+
+
+
+
+
+
+
 
 
     return (
