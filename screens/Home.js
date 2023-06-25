@@ -4,8 +4,6 @@ import * as Contacts from 'expo-contacts';
 import { StatusBar } from 'expo-status-bar';
 import colors from '../components/colors'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
-import CallDetectorManager from 'react-native-call-detection';
 
 
 
@@ -33,48 +31,6 @@ const Home = () => {
 
 
 
-    useEffect(() => {
-        requestPhonePermission();
-    }, []);
-
-    const requestPhonePermission = async () => {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
-                {
-                    title: 'Phone Permission',
-                    message: 'This app needs access to your phone state.',
-                    buttonPositive: 'OK',
-                    buttonNegative: 'Cancel',
-                },
-            );
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('Phone permission granted');
-                // ทำสิ่งที่คุณต้องการเมื่อได้รับการอนุญาต
-                startCallDetection();
-            } else {
-                console.log('Phone permission denied');
-                // ทำสิ่งที่คุณต้องการเมื่อไม่ได้รับการอนุญาต
-            }
-        } catch (error) {
-            console.log('Error requesting phone permission:', error);
-        }
-    };
-
-    const startCallDetection = () => {
-        const callDetector = new CallDetectorManager(
-            (event, phoneNumber) => {
-                if (event === 'Incoming') {
-                    console.log('Incoming call:', phoneNumber);
-                    setIncomingCall(phoneNumber);
-                } else if (event === 'Disconnected') {
-                    console.log('Call ended');
-                    setIncomingCall(null);
-                }
-            },
-            true
-        );
-    };
 
 
     /*    useEffect(() => {

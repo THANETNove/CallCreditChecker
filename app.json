@@ -14,37 +14,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "plugins": [
-      [
-        "expo-contacts",
-        {
-          "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts."
-        }
-      ]
-    ],
     "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets.",
-        "UIBackgroundModes": [
-          "location",
-          "fetch"
-        ],
-        "NSContactsUsageDescription": "Allow $(PRODUCT_NAME) to access your contacts."
-      },
-      "bundleIdentifier": "com.ththanet.CallCreditChecker"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "blockedPermissions": ["android.permission.RECORD_AUDIO"],
-      "permissions": [
-        "android.permission.READ_PHONE_STATE",
-        "android.permission.READ_CONTACTS",
-        "android.permission.WRITE_CONTACTS"
-      ],
       "package": "com.ththanet.CallCreditChecker"
     },
     "web": {
