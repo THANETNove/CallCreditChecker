@@ -1,36 +1,4 @@
 {
-  "expo": {
-    "name": "CallCreditChecker",
-    "slug": "CallCreditChecker",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.ththanet.CallCreditChecker"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "826e79dd-cb52-4f2e-b0bf-7cc0f90bc717"
-      }
-    }
-  }
+  "name": "CallCreditChecker",
+  "displayName": "CallCreditChecker"
 }
