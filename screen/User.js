@@ -42,7 +42,9 @@ const App = () => {
     return (
       <View style={styles.contactItem}>
         <View style={styles.placeholder}>
-          <Text style={styles.displayName}>{item.displayName[0]}</Text>
+          <Text style={[styles.displayName, {color: '#fff'}]}>
+            {item.displayName[0]}
+          </Text>
         </View>
         <View style={styles.displayNameUser}>
           <Text style={styles.displayName}>{item.displayName}</Text>
@@ -58,7 +60,10 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.head}></View>
+
       <FlatList
+        contentContainerStyle={{paddingTop: 20, paddingBottom: 20}}
         data={contacts}
         renderItem={renderContact}
         keyExtractor={item => item.recordID}
@@ -72,15 +77,19 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
   },
+  pagHade: {
+    paddingTop: 20,
+    height: '100%',
+    paddingBottom: 1500,
+  },
   contactItem: {
+    paddingHorizontal: 16,
     marginBottom: 12,
     flexDirection: 'row',
   },
@@ -99,12 +108,16 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 30,
     overflow: 'hidden',
-    backgroundColor: '#d9d9d9',
+    backgroundColor: '#D43A3A',
     alignItems: 'center',
     justifyContent: 'center',
   },
   displayNameUser: {
     marginLeft: 10,
+  },
+  head: {
+    backgroundColor: '#D43A3A',
+    height: 60,
   },
 });
 
