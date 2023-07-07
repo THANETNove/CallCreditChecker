@@ -10,9 +10,21 @@ const Tab = createBottomTabNavigator();
 const indexScreen = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="HomeTab" component={HomeScreen} />
-      <Tab.Screen name="userTab" component={UserScreen} />
-      <Tab.Screen name="SettingsTab" component={SettingsScreen} />
+      <Tab.Screen
+        name="HomeTab"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="userTab"
+        component={UserScreen}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="SettingsTab"
+        component={SettingsScreen}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };
