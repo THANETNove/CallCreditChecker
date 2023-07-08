@@ -5,11 +5,13 @@ import {
   PermissionsAndroid,
   FlatList,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 
-const App = () => {
+const User = () => {
   const [contacts, setContacts] = useState([]);
+  const [searchUser, setSearchUser] = useState('');
 
   useEffect(() => {
     fetchContacts();
@@ -38,6 +40,10 @@ const App = () => {
     }
   };
 
+  const onChangeText = text => {
+    setSearchUser(text);
+  };
+
   const renderContact = ({item}) => {
     return (
       <View style={styles.contactItem}>
@@ -58,13 +64,31 @@ const App = () => {
     );
   };
 
+  const filteredContacts = contacts.filter(item => {
+    const displayName = item.displayName.toLowerCase();
+    const numbers = item.phoneNumbers.map(phoneNumber =>
+      phoneNumber.number.toString().toLowerCase(),
+    );
+
+    return (
+      displayName.includes(searchUser?.toLowerCase()) ||
+      numbers.some(number => number.includes(searchUser?.toLowerCase()))
+    );
+  });
+
   return (
     <View style={styles.container}>
-      <View style={styles.head}></View>
+      <View style={styles.head}>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          placeholder="Search"
+        />
+      </View>
 
       <FlatList
         contentContainerStyle={{paddingTop: 20, paddingBottom: 20}}
-        data={contacts}
+        data={filteredContacts}
         renderItem={renderContact}
         keyExtractor={item => item.recordID}
         showsVerticalScrollIndicator={false}
@@ -77,16 +101,6 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  pagHade: {
-    paddingTop: 20,
-    height: '100%',
-    paddingBottom: 1500,
   },
   contactItem: {
     paddingHorizontal: 16,
@@ -102,7 +116,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'gray',
   },
-  imgCon: {},
   placeholder: {
     width: 55,
     height: 55,
@@ -119,6 +132,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#D43A3A',
     height: 60,
   },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderColor: 'red',
+    borderRadius: 8,
+  },
 });
 
-export default App;
+export default User;
