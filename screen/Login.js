@@ -3,13 +3,44 @@ import {View, Button, Text, StyleSheet, TextInput} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../constants/colors';
 import {TouchableWithoutFeedback} from 'react-native';
+import ApiService from '../service/ApiService';
+import {log} from 'console';
 
 function Login({navigation}) {
   const [isFocused, setIsFocused] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
-  const handleLogin = () => {
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [errorUser, setErrorUser] = useState(null);
+
+  const handleLogin = async () => {
+    if (
+      username !== null &&
+      password !== null &&
+      username !== '' &&
+      password !== ''
+    ) {
+      console.log('username', username);
+      console.log('password', password);
+      const result = await ApiService.getLogin(username, password);
+
+      if (result) {
+        navigation.navigate('indexScreen');
+      } else {
+        setErrorUser(2);
+        setTimeout(() => {
+          setErrorUser(null);
+        }, 1500);
+      }
+    } else {
+      setErrorUser(1);
+      setTimeout(() => {
+        setErrorUser(null);
+      }, 1500);
+    }
+
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
-    navigation.navigate('indexScreen');
+    /*     */
   };
 
   const handleFocus = () => setIsFocused(true);
@@ -25,6 +56,7 @@ function Login({navigation}) {
           <TextInput
             style={[styles.input, isFocused && styles.inputIsFocused]}
             onFocus={handleFocus}
+            onChange={e => setUsername(e.nativeEvent.text)}
             onBlur={handleBlur}
             placeholder={'username'}
             autoCapitalize="none"
@@ -33,15 +65,18 @@ function Login({navigation}) {
             style={[styles.input, isFocused2 && styles.inputIsFocused]}
             onFocus={handleFocus2}
             onBlur={handleBlur2}
+            onChange={e => setPassword(e.nativeEvent.text)}
             placeholder={'password'}
             autoCapitalize="none"
           />
+          {errorUser == 1 ? (
+            <Text style={styles.error}>กรุณากรอก username password</Text>
+          ) : (
+            errorUser == 2 && (
+              <Text style={styles.error}>username password ไม่ถูกต้อง</Text>
+            )
+          )}
         </View>
-        {/*      <Button
-          title="Login"
-          style={{backgroundColor: colors.orange}}
-          onPress={handleLogin}
-        /> */}
         <TouchableWithoutFeedback onPress={handleLogin}>
           <View style={styles.login}>
             <Text style={styles.loginName}>เข้าสู่ระบบ</Text>
@@ -73,8 +108,8 @@ const styles = StyleSheet.create({
     color: colors.grey1,
     backgroundColor: colors.white,
     fontSize: 16,
-    fontFamily: 'IBMPlexSansThai-Regular',
     marginBottom: 16,
+    fontFamily: 'IBMPlexSansThai-Regular',
   },
   login: {
     marginTop: 10,
@@ -87,6 +122,11 @@ const styles = StyleSheet.create({
   loginName: {
     fontSize: 24,
     color: colors.white,
+  },
+  error: {
+    marginTop: -10,
+    color: colors.negative1,
+    marginBottom: 16,
   },
 });
 
