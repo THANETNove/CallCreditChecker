@@ -36,7 +36,14 @@ function Login({navigation}) {
             autoCapitalize="none"
           />
         </View>
-        <Button title="Login" onPress={handleLogin} />
+        {/*  <Button
+          title="Login"
+          style={{backgroundColor: colors.orange}}
+          onPress={handleLogin}
+        /> */}
+        <View style={styles.login}>
+          <Text style={styles.loginName}>เข้าสู่ระบบ</Text>
+        </View>
       </View>
     </LinearGradient>
   );
@@ -44,7 +51,7 @@ function Login({navigation}) {
 
 const styles = StyleSheet.create({
   nameApp: {
-    marginTop: '40%',
+    marginTop: '50%',
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
@@ -65,6 +72,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'IBMPlexSansThai-Regular',
     marginBottom: 16,
+  },
+  login: {
+    marginTop: 10,
+    backgroundColor: colors.orange,
+    while: 'auto',
+    paddingVertical: 6,
+    paddingHorizontal: 46,
+    borderRadius: 100,
+  },
+  loginName: {
+    fontSize: 24,
+    color: colors.white,
   },
 });
 
