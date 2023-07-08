@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Button, Text, StyleSheet, TextInput} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../constants/colors';
+import {TouchableWithoutFeedback} from 'react-native';
 
 function Login({navigation}) {
   const [isFocused, setIsFocused] = useState(false);
@@ -36,14 +37,16 @@ function Login({navigation}) {
             autoCapitalize="none"
           />
         </View>
-        {/*  <Button
+        {/*      <Button
           title="Login"
           style={{backgroundColor: colors.orange}}
           onPress={handleLogin}
         /> */}
-        <View style={styles.login}>
-          <Text style={styles.loginName}>เข้าสู่ระบบ</Text>
-        </View>
+        <TouchableWithoutFeedback onPress={handleLogin}>
+          <View style={styles.login}>
+            <Text style={styles.loginName}>เข้าสู่ระบบ</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </LinearGradient>
   );
