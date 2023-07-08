@@ -10,21 +10,44 @@ const Tab = createBottomTabNavigator();
 
 const indexScreen = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#D43A3A', // สีเมื่อแท็บได้รับการโฟกัส
+        inactiveTintColor: '#989898', // สีเมื่อแท็บไม่ได้รับการโฟกัส
+      }}
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size, focused}) => {
+          let iconName;
+          let iconColor;
+
+          if (route.name === 'HomeTab') {
+            iconName = 'home';
+          } else if (route.name === 'userTab') {
+            iconName = 'user';
+          } else if (route.name === 'SettingsTab') {
+            iconName = 'cogs';
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}>
       <Tab.Screen
         name="HomeTab"
         component={HomeScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          title: 'Home',
+        }}
       />
       <Tab.Screen
         name="userTab"
         component={UserScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, title: 'User'}}
       />
       <Tab.Screen
         name="SettingsTab"
         component={SettingsScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false, title: 'Settings'}}
       />
     </Tab.Navigator>
   );
