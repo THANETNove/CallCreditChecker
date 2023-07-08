@@ -26,12 +26,14 @@ function Login({navigation}) {
             onFocus={handleFocus}
             onBlur={handleBlur}
             placeholder={'username'}
+            autoCapitalize="none"
           />
           <TextInput
             style={[styles.input, isFocused2 && styles.inputIsFocused]}
             onFocus={handleFocus2}
             onBlur={handleBlur2}
             placeholder={'password'}
+            autoCapitalize="none"
           />
         </View>
         <Button title="Login" onPress={handleLogin} />
