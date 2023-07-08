@@ -3,10 +3,14 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screen/Home';
 import SettingsScreen from '../screen/Settings';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import UserScreen from '../screen/User';
+import Login from '../screen/Login';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const indexScreen = () => {
   return (
@@ -19,7 +23,6 @@ const indexScreen = () => {
         tabBarIcon: ({color, size, focused}) => {
           let iconName;
           let iconColor;
-
           if (route.name === 'HomeTab') {
             iconName = 'home';
           } else if (route.name === 'userTab') {
@@ -53,4 +56,13 @@ const indexScreen = () => {
   );
 };
 
-export default indexScreen;
+function MyStack(props) {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="indexScreen" component={indexScreen} />
+    </Stack.Navigator>
+  );
+}
+
+export default MyStack;

@@ -1,44 +1,3 @@
-/* import React from 'react';
-import {StyleSheet, View, Text, TouchableHighlight} from 'react-native';
-export default class Home extends React.Component {
-  _onPressButton = () => {
-    console.log('You pressed the button');
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Should the detection be on?</Text>
-        <TouchableHighlight onPress={this._onPressButton}>
-          <View style={styles.button}>
-            <Text style={styles.text}>Press here</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'honeydew',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  text: {
-    padding: 20,
-    fontSize: 20,
-  },
-  button: {
-    backgroundColor: 'aquamarine',
-    width: 200,
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
- */
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   StyleSheet,
@@ -48,6 +7,8 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import CallDetectorManager from 'react-native-call-detection';
+import Login from '../screen/Login';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -55,8 +16,10 @@ export default class App extends React.Component {
       featureOn: false,
       incoming: false,
       number: null,
+      loginUser: false,
     };
   }
+
   componentDidMount() {
     this.askPermission();
     this.startListenerTapped();
@@ -106,6 +69,7 @@ export default class App extends React.Component {
     this.setState({featureOn: false});
     this.callDetector && this.callDetector.dispose();
   };
+
   render() {
     return (
       <View style={styles.body}>
@@ -138,6 +102,7 @@ export default class App extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   body: {
     backgroundColor: 'honeydew',
