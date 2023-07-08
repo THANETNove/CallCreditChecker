@@ -59,6 +59,7 @@ export default class App extends React.Component {
   }
   componentDidMount() {
     this.askPermission();
+    this.startListenerTapped();
   }
   askPermission = async () => {
     try {
