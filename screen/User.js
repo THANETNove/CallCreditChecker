@@ -6,8 +6,12 @@ import {
   FlatList,
   StyleSheet,
   TextInput,
+  Linking,
+  Dimensions,
+  Pressable,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
+import Icon from 'react-native-vector-icons/Entypo';
 
 const User = () => {
   const [contacts, setContacts] = useState([]);
@@ -53,11 +57,21 @@ const User = () => {
           </Text>
         </View>
         <View style={styles.displayNameUser}>
-          <Text style={styles.displayName}>{item.displayName}</Text>
+          <View>
+            <Text style={styles.displayName}>{item.displayName}</Text>
+            {item.phoneNumbers.map((phoneNumber, index) => (
+              <Text key={index} style={styles.phoneNumber}>
+                {phoneNumber.number}
+              </Text>
+            ))}
+          </View>
           {item.phoneNumbers.map((phoneNumber, index) => (
-            <Text key={index} style={styles.phoneNumber}>
-              {phoneNumber.number}
-            </Text>
+            <Pressable
+              onPress={() => Linking.openURL(`tel:${phoneNumber.number}`)}>
+              <View style={styles.iconPhone}>
+                <Icon name="phone" size={24} color="red" />
+              </View>
+            </Pressable>
           ))}
         </View>
       </View>
@@ -97,7 +111,7 @@ const User = () => {
     </View>
   );
 };
-
+const deviceWidth = Math.round(Dimensions.get('window').width);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -126,6 +140,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   displayNameUser: {
+    flexDirection: 'row',
+    width: deviceWidth - 110,
+    justifyContent: 'space-between',
     marginLeft: 10,
   },
   head: {
@@ -140,6 +157,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: 'red',
     borderRadius: 8,
+  },
+  iconPhone: {
+    padding: 10,
   },
 });
 

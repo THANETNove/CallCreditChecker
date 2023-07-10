@@ -14,7 +14,7 @@ function Login({navigation}) {
   const [errorUser, setErrorUser] = useState(null);
 
   const handleLogin = async () => {
-    if (
+    /*   if (
       username !== null &&
       password !== null &&
       username !== '' &&
@@ -37,8 +37,8 @@ function Login({navigation}) {
       setTimeout(() => {
         setErrorUser(null);
       }, 1500);
-    }
-
+    } */
+    navigation.navigate('indexScreen');
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */
   };
