@@ -59,7 +59,11 @@ const indexScreen = () => {
 function MyStack(props) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login}   options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name="indexScreen" component={indexScreen} />
     </Stack.Navigator>
   );

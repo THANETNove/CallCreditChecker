@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   StyleSheet,
@@ -7,8 +8,6 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import CallDetectorManager from 'react-native-call-detection';
-import Login from '../screen/Login';
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,13 +15,10 @@ export default class App extends React.Component {
       featureOn: false,
       incoming: false,
       number: null,
-      loginUser: false,
     };
   }
-
   componentDidMount() {
     this.askPermission();
-    this.startListenerTapped();
   }
   askPermission = async () => {
     try {
@@ -31,6 +27,8 @@ export default class App extends React.Component {
         PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
       ]);
       console.log('Permissions are:', permissions);
+
+      this.startListenerTapped();
     } catch (err) {
       console.warn(err);
     }
@@ -69,7 +67,6 @@ export default class App extends React.Component {
     this.setState({featureOn: false});
     this.callDetector && this.callDetector.dispose();
   };
-
   render() {
     return (
       <View style={styles.body}>
@@ -102,7 +99,6 @@ export default class App extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   body: {
     backgroundColor: 'honeydew',
