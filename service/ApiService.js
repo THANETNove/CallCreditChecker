@@ -1,7 +1,7 @@
 import axios from 'axios';
 // get ข้อมูล
 
-const url = 'http://192.168.1.10/project/api-call-Checker/';
+const url = 'http://192.168.1.4/project/api-call-Checker/';
 // เช็ค user/pass login
 const getLogin = async (e, y) => {
   const seaUser = await axios

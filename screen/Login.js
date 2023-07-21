@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import colors from '../constants/colors';
 import {TouchableWithoutFeedback} from 'react-native';
 import ApiService from '../service/ApiService';
-import {log} from 'console';
+import {useSelector, useDispatch} from 'react-redux';
 
 function Login({navigation}) {
   const [isFocused, setIsFocused] = useState(false);
@@ -13,8 +13,10 @@ function Login({navigation}) {
   const [password, setPassword] = useState(null);
   const [errorUser, setErrorUser] = useState(null);
 
+  const dispatch = useDispatch();
+
   const handleLogin = async () => {
-    /*   if (
+    if (
       username !== null &&
       password !== null &&
       username !== '' &&
@@ -23,8 +25,13 @@ function Login({navigation}) {
       console.log('username', username);
       console.log('password', password);
       const result = await ApiService.getLogin(username, password);
-
+      console.log('result', result);
       if (result) {
+        console.log('dadsas');
+        dispatch({
+          type: 'ADD_LOGIN',
+          payload: result,
+        });
         navigation.navigate('indexScreen');
       } else {
         setErrorUser(2);
@@ -37,8 +44,8 @@ function Login({navigation}) {
       setTimeout(() => {
         setErrorUser(null);
       }, 1500);
-    } */
-    navigation.navigate('indexScreen');
+    }
+    //  navigation.navigate('indexScreen');
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */
   };
@@ -48,6 +55,8 @@ function Login({navigation}) {
   const handleFocus2 = () => setIsFocused2(true);
   const handleBlur2 = () => setIsFocused2(false);
 
+/*   console.log(useSelector(state => ({...state})));
+  console.log(useSelector(state => state.login)); */
   return (
     <LinearGradient colors={['#D43A3A', 'white', 'white']} style={{flex: 1}}>
       <View style={{flex: 1, alignItems: 'center'}}>

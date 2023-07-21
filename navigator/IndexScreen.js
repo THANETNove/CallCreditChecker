@@ -64,7 +64,11 @@ function MyStack(props) {
         component={Login}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="indexScreen" component={indexScreen} />
+      <Stack.Screen
+        name="indexScreen"
+        component={indexScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }
