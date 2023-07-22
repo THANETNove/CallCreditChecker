@@ -8,7 +8,10 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import CallDetectorManager from 'react-native-call-detection';
-export default class App extends React.Component {
+import {connect} from 'react-redux';
+import {setName, setPasswordUser} from '../redux/actions'; // import actions ที่ต้องการใช้งาน
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,6 +71,8 @@ export default class App extends React.Component {
     this.callDetector && this.callDetector.dispose();
   };
   render() {
+    console.log('name', this.props.name);
+
     return (
       <View style={styles.body}>
         <Text style={styles.text}>Should the detection be on?</Text>
@@ -101,7 +106,7 @@ export default class App extends React.Component {
 }
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: 'honeydew',
+    backgroundColor: '#F5FCFF',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
@@ -112,3 +117,17 @@ const styles = StyleSheet.create({
   },
   button: {},
 });
+
+const mapStateToProps = state => {
+  return {
+    name: state.user.name,
+    passwordUser: state.user.passwordUser,
+  };
+};
+
+const mapDispatchToProps = {
+  setName: setName,
+  setPasswordUser: setPasswordUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

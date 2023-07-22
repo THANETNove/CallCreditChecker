@@ -115,6 +115,7 @@ const deviceWidth = Math.round(Dimensions.get('window').width);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F5FCFF',
   },
   contactItem: {
     paddingHorizontal: 16,

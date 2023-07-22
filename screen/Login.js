@@ -1,12 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {View, Button, Text, StyleSheet, TextInput} from 'react-native';
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../constants/colors';
 import {TouchableWithoutFeedback} from 'react-native';
 import ApiService from '../service/ApiService';
+import {connect} from 'react-redux';
+
 import {useSelector, useDispatch} from 'react-redux';
+import {setName, setPasswordUser} from '../redux/actions';
 
 function Login({navigation}) {
+  const {name, passwordUser} = useSelector(state => state.user);
+
   const [isFocused, setIsFocused] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   const [username, setUsername] = useState(null);
@@ -16,22 +29,18 @@ function Login({navigation}) {
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    if (
+    /*  if (
       username !== null &&
       password !== null &&
       username !== '' &&
       password !== ''
     ) {
-      console.log('username', username);
-      console.log('password', password);
       const result = await ApiService.getLogin(username, password);
       console.log('result', result);
       if (result) {
-        console.log('dadsas');
-        dispatch({
-          type: 'ADD_LOGIN',
-          payload: result,
-        });
+        dispatch(setName(username));
+         dispatch(setPassword(password));
+
         navigation.navigate('indexScreen');
       } else {
         setErrorUser(2);
@@ -44,8 +53,11 @@ function Login({navigation}) {
       setTimeout(() => {
         setErrorUser(null);
       }, 1500);
-    }
-    //  navigation.navigate('indexScreen');
+    } */
+    dispatch(setName(username));
+    dispatch(setPasswordUser(password));
+
+    navigation.navigate('indexScreen');
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */
   };
@@ -55,11 +67,15 @@ function Login({navigation}) {
   const handleFocus2 = () => setIsFocused2(true);
   const handleBlur2 = () => setIsFocused2(false);
 
-/*   console.log(useSelector(state => ({...state})));
-  console.log(useSelector(state => state.login)); */
+  console.log(
+    'Login',
+    useSelector(state => ({...state})),
+  );
+
   return (
     <LinearGradient colors={['#D43A3A', 'white', 'white']} style={{flex: 1}}>
       <View style={{flex: 1, alignItems: 'center'}}>
+        <Image style={styles.image} source={require('../image/iconApp.png')} />
         <Text style={styles.nameApp}>Call Credit Checker </Text>
         <View style={{width: '100%', paddingHorizontal: 16}}>
           <TextInput
@@ -98,7 +114,7 @@ function Login({navigation}) {
 
 const styles = StyleSheet.create({
   nameApp: {
-    marginTop: '50%',
+    marginTop: '62%',
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
@@ -137,6 +153,19 @@ const styles = StyleSheet.create({
     color: colors.negative1,
     marginBottom: 16,
   },
+  image: {
+    width: 170,
+    height: 170,
+    position: 'absolute',
+    marginTop: 50,
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
 });
 
-export default Login;
+export default connect()(Login);

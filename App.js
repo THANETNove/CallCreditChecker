@@ -1,12 +1,12 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
-import configureStore from './redux/reducers';
+import {Store} from './redux/store';
 import IndexScreen from './navigator/IndexScreen';
+
 const App = () => {
-  const {store, persistor} = configureStore();
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <NavigationContainer>
         <IndexScreen />
       </NavigationContainer>
