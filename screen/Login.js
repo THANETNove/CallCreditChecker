@@ -15,11 +15,10 @@ import ApiService from '../service/ApiService';
 import {connect} from 'react-redux';
 
 import {useSelector, useDispatch} from 'react-redux';
-/* import {setName, setPasswordUser} from '../redux/actions'; */
+import {setAuthUserName, setAuthPassword} from '../redux/action';
 
 function Login({navigation}) {
-  const {name, passwordUser} = useSelector(state => state.user);
-
+  const {auth_username, auth_password} = useSelector(state => state.authUser);
   const [isFocused, setIsFocused] = useState(false);
   const [isFocused2, setIsFocused2] = useState(false);
   const [username, setUsername] = useState(null);
@@ -54,9 +53,9 @@ function Login({navigation}) {
         setErrorUser(null);
       }, 1500);
     } */
-    /*     dispatch(setName(username));
-    dispatch(setPasswordUser(password));
- */
+    dispatch(setAuthUserName(username));
+    dispatch(setAuthPassword(password));
+
     navigation.navigate('indexScreen');
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import CallDetectorManager from 'react-native-call-detection';
 import {connect} from 'react-redux';
-import {setName, setPasswordUser} from '../redux/actions'; // import actions ที่ต้องการใช้งาน
+import {setAuthUserName, setAuthPassword} from '../redux/action';
 
 class Home extends React.Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class Home extends React.Component {
     this.callDetector && this.callDetector.dispose();
   };
   render() {
-    console.log('name', this.props.name);
+    console.log('HOMe', this.props.username);
 
     return (
       <View style={styles.body}>
@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    name: state.user.name,
-    passwordUser: state.user.passwordUser,
+    username: state.authUser.auth_username,
+    password: state.authUser.auth_password,
   };
 };
 
 const mapDispatchToProps = {
-  setName: setName,
-  setPasswordUser: setPasswordUser,
+  setAuthUserName: setAuthUserName,
+  setAuthPassword: setAuthPassword,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
