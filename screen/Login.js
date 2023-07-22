@@ -15,7 +15,7 @@ import ApiService from '../service/ApiService';
 import {connect} from 'react-redux';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {setName, setPasswordUser} from '../redux/actions';
+/* import {setName, setPasswordUser} from '../redux/actions'; */
 
 function Login({navigation}) {
   const {name, passwordUser} = useSelector(state => state.user);
@@ -54,9 +54,9 @@ function Login({navigation}) {
         setErrorUser(null);
       }, 1500);
     } */
-    dispatch(setName(username));
+    /*     dispatch(setName(username));
     dispatch(setPasswordUser(password));
-
+ */
     navigation.navigate('indexScreen');
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */
@@ -168,4 +168,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect()(Login);
+export default Login;
