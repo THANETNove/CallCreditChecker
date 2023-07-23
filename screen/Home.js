@@ -71,8 +71,6 @@ class Home extends React.Component {
     this.callDetector && this.callDetector.dispose();
   };
   render() {
-    console.log('HOMe', this.props.username);
-
     return (
       <View style={styles.body}>
         <Text style={styles.text}>Should the detection be on?</Text>

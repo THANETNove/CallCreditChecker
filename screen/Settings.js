@@ -1,7 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {setAuthUserName, setAuthPassword, setLanguage} from '../redux/action';
+import SelectDropdown from 'react-native-select-dropdown';
 
-const Settings = () => {
+const Settings = ({navigation}) => {
+  const {auth_username, auth_password, language} = useSelector(
+    state => state.authUser,
+  );
+  const dispatch = useDispatch();
+
+  const countries = ['ไทย', 'England', '中国', '한국'];
+  const handleSelectLanguage = (selectedItem, index) => {
+    dispatch(setLanguage(selectedItem)); 
+  };
+
+  useEffect(() => {
+    console.log('language', language);
+  }, [language]);
+
+  const logout = () => {
+    dispatch(setAuthUserName(null));
+    navigation.navigate('Login');
+  };
+
+  const selectedLanguage =
+    language == 'th' ? 'Thai' : language == 'eng' ? 'England' : language;
+  console.log('auth_username', language);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -9,22 +34,58 @@ const Settings = () => {
           source={require('../image/iconApp.png')}
           style={styles.profilePicture}
         />
-        <Text style={styles.profileName}>John Doe</Text>
+        {/* <Text style={styles.profileName}>{auth_username[0].username}</Text> */}
       </View>
       <View style={styles.info}>
         <View style={styles.infoItem}>
-          <Text style={styles.label}>Email:</Text>
-          <Text style={styles.value}>john.doe@example.com</Text>
+          <Text style={styles.label}>username:</Text>
+          <Text style={styles.value}>{auth_username[0].username}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Text style={styles.label}>Location:</Text>
-          <Text style={styles.value}>New York, USA</Text>
+          <Text style={styles.label}>expiration date:</Text>
+          <Text style={styles.value}>{auth_username[0].expiration_date}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Text style={styles.label}>Age:</Text>
-          <Text style={styles.value}>30</Text>
+          <Text style={styles.label}>
+            {language == 'ไทย'
+              ? 'ภาษา'
+              : language == 'eng'
+              ? 'language'
+              : language == '中国'
+              ? '中国人'
+              : '한국'}
+          </Text>
+          <View style={styles.language}>
+            <SelectDropdown
+              data={countries}
+              onSelect={(selectedItem, index) => {
+                handleSelectLanguage(selectedItem);
+              }}
+              defaultValue={language} // กำหนดค่าเริ่มต้นเป็น 'th'
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+            />
+          </View>
+          {/*  <View style={styles.language}>
+          <View style={styles.language}>
+            <Text style={styles.valueLanguage}>ไทย</Text>
+          </View>
+          <View style={styles.language}>
+            <Text style={styles.valueLanguage}>England</Text>
+          </View>
+          <View style={styles.language}>
+            <Text style={styles.valueLanguage}>中国</Text>
+          </View>
+          <View style={[styles.language, {marginLeft: 78}]}>
+            <Text style={styles.valueLanguage}>한국</Text>
+          </View> */}
         </View>
-        <TouchableOpacity style={styles.logoutButton}>
+        {/*  ////th ไทย/eng อังกฤษ/语言- 中国 จีน /언어-한국인เกาหลี */}
+        <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
           <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -62,10 +123,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
+    marginTop: 10,
   },
   infoItem: {
-    flexDirection: 'row',
+    flexDirection: 'row', // เพิ่ม flexDirection: 'row' เพื่อให้ตัวอื่น ๆ อยู่ในแนวนอน
+    alignItems: 'center', // จัดเรียงตำแหน่งข้อความให้อยู่ตรงกลาง
     marginBottom: 10,
+    flexWrap: 'wrap',
   },
   label: {
     width: 80,
@@ -75,6 +139,9 @@ const styles = StyleSheet.create({
   value: {
     flex: 1,
     color: '#555',
+  },
+  valueLanguage: {
+    color: '#fff',
   },
   logoutButton: {
     backgroundColor: '#f44336', // Red color for logout button
@@ -87,6 +154,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  language: {
+    marginRight: 4,
+    marginBottom: 16,
+    paddingHorizontal: 16,
   },
 });
 

@@ -27,18 +27,24 @@ function Login({navigation}) {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log('auth_username', auth_username);
+    if (auth_username) {
+      navigation.navigate('indexScreen');
+    }
+  }, []);
+
   const handleLogin = async () => {
-    /*  if (
+    if (
       username !== null &&
       password !== null &&
       username !== '' &&
       password !== ''
     ) {
       const result = await ApiService.getLogin(username, password);
-      console.log('result', result);
       if (result) {
-        dispatch(setName(username));
-         dispatch(setPassword(password));
+        dispatch(setAuthUserName(result));
+        /*         dispatch(setAuthPassword(password)); */
 
         navigation.navigate('indexScreen');
       } else {
@@ -52,11 +58,11 @@ function Login({navigation}) {
       setTimeout(() => {
         setErrorUser(null);
       }, 1500);
-    } */
-    dispatch(setAuthUserName(username));
+    }
+    /*     dispatch(setAuthUserName(username));
     dispatch(setAuthPassword(password));
 
-    navigation.navigate('indexScreen');
+    navigation.navigate('indexScreen'); */
     // ทำการเปลี่ยนหน้าไปยัง indexScreen
     /*     */
   };
@@ -65,11 +71,6 @@ function Login({navigation}) {
   const handleBlur = () => setIsFocused(false);
   const handleFocus2 = () => setIsFocused2(true);
   const handleBlur2 = () => setIsFocused2(false);
-
-  console.log(
-    'Login',
-    useSelector(state => ({...state})),
-  );
 
   return (
     <LinearGradient colors={['#D43A3A', 'white', 'white']} style={{flex: 1}}>
